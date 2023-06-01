@@ -1,8 +1,9 @@
-import {useState} from 'react'
+import {useRef, useState} from 'react'
 
 const GuestList: React.FC = () => {
     const [name, setName] = useState('')
     const [guests, setGuests] = useState<string[]>([]);
+    const _ref = useRef<HTMLButtonElement | null>(null)
 
     const onClick = () => {
         setName('');
@@ -13,7 +14,7 @@ const GuestList: React.FC = () => {
         <h3> Guest List </h3> 
         {guests}
         <input value={name} onChange={(e) => setName(e.target.value)}/>
-        <button onClick={onClick}> Add Guest </button>
+        <button ref={_ref} onClick={onClick}> Add Guest </button>
     </div>
 }
 
