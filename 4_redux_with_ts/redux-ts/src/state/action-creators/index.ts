@@ -3,8 +3,13 @@ import { Dispatch } from "redux";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
 
-const searchRepositories = (term: string) => {
+// We're going to make use of redux thunk in order to write out
+// asynchronous action creator
+
+export const searchRepositories = (term: string) => {
+  // we're going to use redux thunk to make asynchronous calls
   return async (dispatch: Dispatch<Action>) => {
+    // set loading to true, when we start making the request
     dispatch({
       type: ActionType.SEARCH_REPOSITORIES,
     });
@@ -19,20 +24,16 @@ const searchRepositories = (term: string) => {
         }
       );
 
-      if (data) {
-        const names = data.objects.map((result: any) => result.package.name);
+      const names = data.objects.map((result: any) => result.package.name);
 
-        dispatch({
-          type: ActionType.SEARCH_REPOSITORIES_SUCCESS,
-          payload: names,
-        });
-      } else {
-        throw new Error("An error occured");
-      }
-    } catch (err: any) {
+      dispatch({
+        type: ActionType.SEARCH_REPOSITORIES_SUCCESS,
+        payload: names,
+      });
+    } catch (error: any) {
       dispatch({
         type: ActionType.SEARCH_REPOSITORIES_ERROR,
-        payload: err.message,
+        payload: error.message,
       });
     }
   };
