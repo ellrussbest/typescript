@@ -29,7 +29,7 @@ export const useEffectOnce = (effect) => {
       }
 
       // otherwise this is not a dummy destroy, so call the destroy func
-      if (destroyFn.current) {
+      if (!!destroyFn.current && typeof destroyFn.current === "function") {
         destroyFn.current();
       }
     };
