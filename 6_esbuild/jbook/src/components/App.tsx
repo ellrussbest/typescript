@@ -1,9 +1,10 @@
 import { useState } from "react";
 
 // transform -> transpiling, build -> bundling
-import { transform, build, initialize } from "esbuild-wasm";
+import { /*transform, */ build, initialize } from "esbuild-wasm";
 import { useEffectOnce } from "../hooks/useEffectOnce-hook";
 import { unpkgPathPlugin } from "../plugins/unpkg-path-plugin";
+import { fetchPlugin } from "../plugins/fetch-plugin";
 
 export default function App() {
   const [input, setInput] = useState("");
@@ -12,10 +13,14 @@ export default function App() {
 
   // Initialize the esbuild-wasm
   useEffectOnce(async () => {
-    initialize({
-      wasmURL: "/esbuild.wasm",
-      worker: true,
-    });
+    try {
+      await initialize({
+        wasmURL: "https://unpkg.com/esbuild-wasm@0.17.19/esbuild.wasm",
+        worker: true,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   });
 
   //   // transform -> for tranpiling
@@ -29,18 +34,23 @@ export default function App() {
 
   // build -> for bundling
   const onClick = async () => {
-    const result = await build({
-      entryPoints: ["index.js"],
-      bundle: true,
-      write: false,
-      plugins: [unpkgPathPlugin()],
-      define: {
-        "process.env.NODE_ENV": "'production'",
-        global: "window",
-      },
-    });
-    setCode(result.outputFiles[0].text);
-    // console.log(result);
+    try {
+      const result = await build({
+        entryPoints: ["index.js"],
+        bundle: true,
+        write: false,
+        plugins: [unpkgPathPlugin(), fetchPlugin(input)],
+        define: {
+          "process.env.NODE_ENV": "'production'",
+          global: "window",
+        },
+      });
+      if (result) setCode(result.outputFiles[0].text);
+      else throw new Error("Error");
+      // console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
