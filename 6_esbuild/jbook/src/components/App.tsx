@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 // transform -> transpiling, build -> bundling
 import { /*transform, */ build, initialize } from "esbuild-wasm";
@@ -10,6 +10,7 @@ export default function App() {
   const [input, setInput] = useState("");
 
   const [code, setCode] = useState("");
+  const iframe = useRef<any>();
 
   // Initialize the esbuild-wasm
   useEffectOnce(async () => {
@@ -45,13 +46,39 @@ export default function App() {
           global: "window",
         },
       });
-      if (result) setCode(result.outputFiles[0].text);
+
+      // if (result) setCode(result.outputFiles[0].text);
+      if (result)
+        iframe.current.contentWindow.postMessage(
+          result.outputFiles[0].text,
+          "*"
+        );
       else throw new Error("Error");
-      // console.log(result);
     } catch (error) {
       console.error(error);
     }
   };
+
+  const html = `
+  <html>
+    <head>
+    </head>
+
+    <body>
+      <div id="root"> </div>
+      <script>
+        window.addEventListener('message', (event) => {
+          try{
+            eval(event.data)
+          }catch(error) {
+            const doc = document.getElementById("root")
+            console.log(doc)
+          }
+        }, false)
+      </script>
+    </body>
+  </html>
+  `;
 
   return (
     <div>
@@ -64,6 +91,14 @@ export default function App() {
       </div>
 
       <pre>{code}</pre>
+
+      {/* This will disable communication between the parent and the child*/}
+      <iframe
+        ref={iframe}
+        sandbox="allow-scripts"
+        srcDoc={html}
+        title="iframe to render user's code execution result"
+      />
     </div>
   );
 }
