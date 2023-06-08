@@ -9,7 +9,7 @@ import { fetchPlugin } from "../plugins/fetch-plugin";
 export default function App() {
   const [input, setInput] = useState("");
 
-  const [code, setCode] = useState("");
+  // const [code, setCode] = useState("");
   const iframe = useRef<any>();
 
   // Initialize the esbuild-wasm
@@ -35,6 +35,10 @@ export default function App() {
 
   // build -> for bundling
   const onClick = async () => {
+    // reset the iframe, before execution of the whole button click operation
+    iframe.current.srcdoc = html;
+
+
     try {
       const result = await build({
         entryPoints: ["index.js"],
@@ -71,8 +75,9 @@ export default function App() {
           try{
             eval(event.data)
           }catch(error) {
-            const doc = document.getElementById("root")
-            console.log(doc)
+            const doc = document.querySelector("#root");
+            root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + error + '</div>'
+            console.error(error);
           }
         }, false)
       </script>
@@ -90,7 +95,7 @@ export default function App() {
         <button onClick={onClick}>Submit</button>
       </div>
 
-      <pre>{code}</pre>
+      {/* <pre>{code}</pre> */}
 
       {/* This will disable communication between the parent and the child*/}
       <iframe
