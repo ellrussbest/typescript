@@ -2,10 +2,10 @@ import MonacoEditor from "@monaco-editor/react";
 
 interface CodeEditorProps {
   initialValue: string;
-  onChange(value: string): void;
+  onChange(value: string, ev: any): void;
 }
 
-const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
+const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue }) => {
   return (
     <MonacoEditor
       // this will be the initial value, after initialization, value is not used anymore
