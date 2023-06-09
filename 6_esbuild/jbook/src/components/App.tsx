@@ -5,6 +5,7 @@ import { /*transform, */ build, initialize } from "esbuild-wasm";
 import { useEffectOnce } from "../hooks/useEffectOnce-hook";
 import { unpkgPathPlugin } from "../plugins/unpkg-path-plugin";
 import { fetchPlugin } from "../plugins/fetch-plugin";
+import CodeEditor from "./code-editor";
 
 export default function App() {
   const [input, setInput] = useState("");
@@ -37,7 +38,6 @@ export default function App() {
   const onClick = async () => {
     // reset the iframe, before execution of the whole button click operation
     iframe.current.srcdoc = html;
-
 
     try {
       const result = await build({
@@ -87,6 +87,10 @@ export default function App() {
 
   return (
     <div>
+      <CodeEditor
+        initialValue="console.log('Hello World')"
+        onChange={(value) => setInput(value)}
+      />
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
