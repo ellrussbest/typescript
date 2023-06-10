@@ -88,7 +88,7 @@ export default function App() {
   return (
     <div>
       <CodeEditor
-        initialValue={input}
+        value={input}
         onChange={(value, ev) => {
           value !== undefined && setInput(value);
         }}
