@@ -1,12 +1,17 @@
 import "./code-editor.css";
+// import "./styntax.css";
 import MonacoEditor from "@monaco-editor/react";
+import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import { editor } from "monaco-editor";
 import { format } from "prettier";
 import * as parser from "prettier/parser-babel";
 import { useCallback, useEffect, useState } from "react";
-import codeShift from "jscodeshift";
 import Highlighter from "monaco-jsx-highlighter";
+import { parse } from "@babel/parser";
+import traverse from "@babel/traverse";
+import { Buffer } from "buffer";
 
+global.Buffer = Buffer;
 
 interface CodeEditorProps {
   value: string;
@@ -15,13 +20,21 @@ interface CodeEditorProps {
     ev: editor.IModelContentChangedEvent
   ): void;
 }
+type Monaco = typeof monaco;
 
 const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange }) => {
   const [formatted, setFormatted] = useState<string>(value);
+  const [isCtrl, setIsCtrl] = useState(false);
 
   useEffect(() => {
     setFormatted(value);
   }, [value]);
+
+  function onMount(editor: editor.IStandaloneCodeEditor, monaco: Monaco): void {
+    const highlighter = new Highlighter(monaco, parse, traverse, editor);
+    highlighter.highlightOnDidChangeModelContent();
+    highlighter.addJSXCommentCommand();
+  }
 
   const onFormatClick = useCallback(() => {
     setFormatted(
@@ -35,6 +48,20 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange }) => {
     );
   }, [formatted]);
 
+  document.onkeyup = (e) => {
+    if (e.keyCode === 17) setIsCtrl(false);
+  };
+
+  useEffect(() => {
+    document.onkeydown = (e) => {
+      if (e.keyCode === 17) setIsCtrl(true);
+      if (e.keyCode === 83 && isCtrl === true) {
+        onFormatClick();
+        return false;
+      }
+    };
+  }, [isCtrl, onFormatClick]);
+
   return (
     <div className="editor-wrapper">
       <button
@@ -44,6 +71,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange }) => {
         Format
       </button>
       <MonacoEditor
+        onMount={onMount}
         onChange={onChange}
         value={formatted}
         language="javascript"
