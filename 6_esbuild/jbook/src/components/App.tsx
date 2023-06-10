@@ -8,7 +8,7 @@ import { fetchPlugin } from "../plugins/fetch-plugin";
 import CodeEditor from "./code-editor";
 
 export default function App() {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('console.log("Hello World")');
 
   // const [code, setCode] = useState("");
   const iframe = useRef<any>();
@@ -88,8 +88,10 @@ export default function App() {
   return (
     <div>
       <CodeEditor
-        initialValue='console.log("Hello World")'
-        onChange={(value) => setInput(value)}
+        initialValue={input}
+        onChange={(value, ev) => {
+          value !== undefined && setInput(value);
+        }}
       />
       <textarea
         value={input}
