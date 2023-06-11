@@ -9,9 +9,6 @@ import { useCallback, useEffect, useState } from "react";
 import Highlighter from "monaco-jsx-highlighter";
 import { parse } from "@babel/parser";
 import traverse from "@babel/traverse";
-import { Buffer } from "buffer";
-
-global.Buffer = Buffer;
 
 interface CodeEditorProps {
   value: string;
@@ -75,7 +72,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange }) => {
         onChange={onChange}
         value={formatted}
         language="javascript"
-        height="500px"
+        height="100%"
         /*theme="dark"*/ options={{
           wordWrap: "on",
           // minimap: {enabled: false},
