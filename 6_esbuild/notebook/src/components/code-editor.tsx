@@ -1,7 +1,7 @@
 import "./code-editor.css";
 // import "./styntax.css";
 import MonacoEditor from "@monaco-editor/react";
-import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+import * as monaco from "monaco-editor";
 import { editor } from "monaco-editor";
 import { format } from "prettier";
 import * as parser from "prettier/parser-babel";
