@@ -48,11 +48,11 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange }) => {
     );
   }, [formatted]);
 
-  document.onkeyup = (e) => {
-    if (e.keyCode === 17) setIsCtrl(false);
-  };
-
   useEffect(() => {
+    document.onkeyup = (e) => {
+      if (e.keyCode === 17) setIsCtrl(false);
+    };
+
     document.onkeydown = (e) => {
       if (e.keyCode === 17) setIsCtrl(true);
       if (e.keyCode === 83 && isCtrl === true) {
