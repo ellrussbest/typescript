@@ -31,18 +31,24 @@ const bundle = async (rawCode: string) => {
         // build -> for bundling
     }
 
-    const result = await build({
-        entryPoints: ["index.js"],
-        bundle: true,
-        write: false,
-        plugins: [unpkgPathPlugin(), fetchPlugin(rawCode)],
-        define: {
-            "process.env.NODE_ENV": "'production'",
-            global: "window",
-        },
-    });
+    try {
+        const result = await build({
+            entryPoints: ["index.js"],
+            bundle: true,
+            write: false,
+            plugins: [unpkgPathPlugin(), fetchPlugin(rawCode)],
+            define: {
+                "process.env.NODE_ENV": "'production'",
+                global: "window",
+            },
+        });
 
-    return result.outputFiles[0].text;
+        if (result) return result.outputFiles[0].text;
+        else throw new Error(result)
+    } catch (error: any) {
+        return error
+    }
+
 }
 
 export default bundle;

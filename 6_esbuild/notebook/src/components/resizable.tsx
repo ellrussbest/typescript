@@ -18,6 +18,7 @@ const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
     let timer: any;
 
     const listener = () => {
+      // debouncing
       if (timer) {
         clearTimeout(timer);
       }
@@ -34,6 +35,7 @@ const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
     window.addEventListener("resize", listener);
 
     return () => {
+      clearTimeout(timer);
       window.removeEventListener("resize", listener);
     };
   }, [width]);

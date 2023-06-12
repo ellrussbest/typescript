@@ -14,13 +14,23 @@ const html = `
     <body>
       <div id="root"> </div>
       <script>
+        const handleError = (error) => {
+              const doc = document.querySelector("#root");
+              root.innerHTML = '<div style="color: red; text-align: center;"><h4>Runtime Error</h4>' + error + '</div>'
+              console.error(error);
+        };
+
+        window.addEventListener('error', (event) => {
+          event.preventDefault();
+          handleError(event.error)
+        })
+
         window.addEventListener('message', (event) => {
           try{
+            if(event.data instanceof Error) throw event.data.message
             eval(event.data)
           }catch(error) {
-            const doc = document.querySelector("#root");
-            root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + error + '</div>'
-            console.error(error);
+            handleError(error)
           }
         }, false)
       </script>
