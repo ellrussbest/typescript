@@ -1,0 +1,4 @@
+html iframe #webpack-dev-server-client-overlay-div {
+  display: none !important;
+  z-index: -1 !important;
+}

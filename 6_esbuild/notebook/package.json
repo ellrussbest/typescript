@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/parser": "^7.22.5",
-    "@babel/traverse": "^7.22.5",
     "@monaco-editor/react": "^4.5.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -15,28 +13,18 @@
     "@types/react": "^18.2.8",
     "@types/react-dom": "^18.2.4",
     "@types/react-resizable": "^3.0.4",
-    "assert": "^2.0.0",
     "axios": "^1.4.0",
-    "buffer": "^6.0.3",
     "bulmaswatch": "^0.8.1",
-    "crypto-browserify": "^3.12.0",
     "esbuild-wasm": "^0.17.19",
-    "https-browserify": "^1.0.0",
     "localforage": "^1.10.0",
     "monaco-editor": "^0.39.0",
     "monaco-jsx-highlighter": "^2.0.4",
-    "os-browserify": "^0.3.0",
     "prettier": "^2.8.8",
-    "process": "^0.11.10",
     "react": "^18.2.0",
-    "react-app-rewired": "^2.2.1",
     "react-dom": "^18.2.0",
     "react-resizable": "^3.0.5",
     "react-scripts": "5.0.1",
-    "stream-browserify": "^3.0.0",
-    "stream-http": "^3.2.0",
     "typescript": "^4.9.5",
-    "url": "^0.11.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -62,5 +50,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "assert": "^2.0.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "process": "^0.11.10",
+    "react-app-rewired": "^2.2.1",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.1"
   }
 }
