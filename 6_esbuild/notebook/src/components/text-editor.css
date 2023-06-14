@@ -1,1 +1,19 @@
+.w-md-editor-text-pre .token.title.important {
+  color: var(--color-prettylights-syntax-markup-bold, #24292f) !important;
+  all: unset !important;
+}
 
+.w-md-editor-bar > svg {
+  display: none !important;
+}
+
+.w-md-editor-bar {
+  display: block;
+  background-color: #37414b;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  height: 10px !important;
+  width: 100% !important;
+  cursor: row-resize !important;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=");
+}

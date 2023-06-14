@@ -1,9 +1,9 @@
-import "./text-editor.css"
+import "./text-editor.css";
 import MDEditor from "@uiw/react-md-editor";
 import { useEffect, useRef, useState } from "react";
 
 const TextEditor: React.FC = () => {
-  const [value, setValue] = useState<any>("**Hello world!!!**");
+  const [value, setValue] = useState<any>("# Hello world");
   const [editing, setEditing] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -35,8 +35,15 @@ const TextEditor: React.FC = () => {
   }
 
   return (
-    <div onClick={() => setEditing(true)}>
-      <MDEditor.Markdown source={value} style={{ whiteSpace: "pre-wrap" }} />
+    <div className="card" onClick={() => setEditing(true)}>
+      <div className="card-content">
+        <div className="content">
+          <MDEditor.Markdown
+            source={value}
+            style={{ whiteSpace: "pre-wrap" }}
+          />
+        </div>
+      </div>
     </div>
   );
 };
