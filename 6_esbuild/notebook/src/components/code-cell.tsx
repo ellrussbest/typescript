@@ -3,21 +3,27 @@ import bundle from "../bundler";
 import CodeEditor from "./code-editor";
 import Preview from "./preview";
 import Resizable from "./resizable";
+import { Cell } from "../state";
+import { useActions } from "../hooks/useAction";
 
-export default function CodeCell() {
-  const [input, setInput] = useState('console.log("Hello World")');
+interface CodeCellProps {
+  cell: Cell;
+}
+
+const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
   const [code, setCode] = useState("");
+  const { updateCell } = useActions();
 
   useEffect(() => {
     const timer = setTimeout(async () => {
-      const output = await bundle(input);
+      const output = await bundle(cell.content);
       setCode(output);
     }, 1000);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [input]);
+  }, [cell.content]);
 
   return (
     <div>
@@ -31,9 +37,9 @@ export default function CodeCell() {
         >
           <Resizable direction="horizontal">
             <CodeEditor
-              value={input}
+              value={cell.content}
               onChange={(value, ev) => {
-                value !== undefined && setInput(value);
+                value !== undefined && updateCell(cell.id, value);
               }}
             />
           </Resizable>
@@ -42,4 +48,6 @@ export default function CodeCell() {
       </Resizable>
     </div>
   );
-}
+};
+
+export default CodeCell;

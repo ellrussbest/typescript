@@ -26,7 +26,6 @@ const reducer = (
 ): CellsState => {
   let { data, order } = state;
   let cell: Cell;
-
   switch (action.type) {
     case ActionType.UPDATE_CELL:
       cell = data[action.payload.id];

@@ -1,11 +1,9 @@
-import TextEditor from "./text-editor";
-// import CodeCell from "./code-cell";
+import CellList from "./cell-list";
 
 export default function App() {
   return (
-    <>
-      <TextEditor />
-      {/* <CodeCell /> */}
-    </>
+    <div>
+      <CellList />
+    </div>
   );
 }
