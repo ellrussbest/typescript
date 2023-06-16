@@ -32,8 +32,14 @@ export interface UpdateCellAction {
   };
 }
 
+export interface DragCellAction {
+  type: ActionType.DRAG_CELL;
+  payload: string[];
+}
+
 export type Action =
   | MoveCellAction
   | DeleteCellAction
   | InsertCellBeforeAction
-  | UpdateCellAction;
+  | UpdateCellAction
+  | DragCellAction;

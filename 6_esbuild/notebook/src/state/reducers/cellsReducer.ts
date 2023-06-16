@@ -60,6 +60,8 @@ const reducer = (
 
       data = { ...data, [id]: cell };
       return { ...state, data, order };
+    case ActionType.DRAG_CELL:
+      return { ...state, order: action.payload };
     default:
       return state;
   }
