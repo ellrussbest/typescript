@@ -20,3 +20,27 @@ export const middleware: Middlware = (store) => {
 // export const middleware_2 = (store) => {
 //   return async () => {};
 // };
+let timer: any;
+
+export const implementMiddleware: Middlware = ({ getState }) => {
+  return (next) => {
+    return (action) => {
+      next(action);
+
+      // checks
+      // if (action.type !== ActionType.UPDATE_CELL) return
+      // const {
+      //   cells: { data },
+      // } = getState();
+      // const cell = data[action.payload.id]
+      // if (cell.type === 'text') return
+
+      clearTimeout(timer);
+
+      timer = setTimeout(async () => {
+        // bundling code goes here
+        console.log("Timer expired");
+      }, 750);
+    };
+  };
+};
