@@ -1,4 +1,3 @@
-import { swapDown } from "../../utils/swap";
 import { ActionType } from "../action-types";
 import { /*Action,*/ Direction, DragCellAction } from "../actions";
 import {
@@ -38,13 +37,15 @@ export const moveCell = (id: string, direction: Direction): MoveCellAction => {
 
 export const insertCellBefore = (
   id: string | null,
-  type: CellTypes
+  type: CellTypes,
+  content: string = ""
 ): InsertCellBeforeAction => {
   return {
     type: ActionType.INSERT_CELL_BEFORE,
     payload: {
       id,
       type,
+      content,
     },
   };
 };

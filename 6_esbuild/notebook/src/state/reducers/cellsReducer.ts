@@ -48,7 +48,7 @@ const reducer = (
       cell = {
         id,
         type: action.payload.type,
-        content: "",
+        content: action.payload.content ?? "",
       };
 
       if (action.payload.id === null) {
