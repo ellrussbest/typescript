@@ -2,6 +2,7 @@ const defaultCellValue = `
 import React, { useState, Fragment } from "react";
 import ReactDOM from "react-dom/client";
 import "bulma/css/bulma.min.css";
+
 import { Button } from "react-bulma-components";
 
 const App = () => {
@@ -23,7 +24,6 @@ const App = () => {
         {count}
         <Button color="primary" onClick={() => setCount((count) => count + 1)}>
           Click Me to Increment
-          <i class="fa-solid fa-plus-large"></i>
         </Button>
       </div>
     </Fragment>
@@ -35,7 +35,6 @@ root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
-);
-`;
+);`;
 
 export default defaultCellValue;

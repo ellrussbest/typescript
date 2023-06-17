@@ -50,7 +50,9 @@ const TextEditor: React.FC<TextEditorProps> = ({ cell }) => {
       <div className="card-content">
         <div className="content">
           <MDEditor.Markdown
-            source={cell.content}
+            source={
+              cell.content === "" ? "# Click to Start Editing" : cell.content
+            }
             style={{ whiteSpace: "pre-wrap" }}
           />
         </div>
