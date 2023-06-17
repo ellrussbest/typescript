@@ -13,8 +13,8 @@ store.dispatch({
   type: ActionType.INSERT_CELL_BEFORE,
   payload: {
     id: null,
-    type: "code",
-    content: defaultCellValue,
+    type: "text",
+    content: "# Markdown Editor, Click to Edit",
   },
 });
 
@@ -22,7 +22,7 @@ store.dispatch({
   type: ActionType.INSERT_CELL_BEFORE,
   payload: {
     id: null,
-    type: "text",
-    content: "# Markdown Editor, Click to Edit",
+    type: "code",
+    content: defaultCellValue,
   },
 });
